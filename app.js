@@ -15,13 +15,21 @@ app.get('/', (req,res) => {
 })
 
 app.get('/restaurants', (req,res) => {
-  res.render('index',{restaurants})
+  res.render('index',{ restaurants })
 })
 
 app.get('/restaurants/:id', (req,res) => {
   const id = req.params.id
   const restaurant = restaurants.find((restaurant) => restaurant.id.toString() === id)
-  res.render('show_page',{restaurant})
+  res.render('show_page',{ restaurant })
+})
+
+app.get('/search', (req,res) => {
+  const keyword = req.query.keyword?.trim()
+  const matchedRestaurants = keyword ? restaurants.filter((restaurant) => {
+    return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.name_en.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.includes(keyword)
+  }) : restaurants
+  res.render('index',{ restaurants: matchedRestaurants, keyword })
 })
 
 app.listen(port, () => {
