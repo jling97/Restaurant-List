@@ -16,6 +16,7 @@ app.get('/', (req,res) => {
   res.redirect('/restaurants')
 })
 
+// 資料帶入handlebars，動態呈現
 app.get('/restaurants', (req,res) => {
   res.render('index',{ restaurants })
 })
@@ -38,5 +39,5 @@ app.get('/search', (req,res) => {
 
 // 啟動並監聽伺服器
 app.listen(port, () => {
-  console.log(`Restaurant List listening on port ${port}`)
+  console.log(`The Express server is running at http://localhost:${port}.`)
 })
